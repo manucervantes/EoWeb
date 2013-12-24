@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="">
+<head>
+<meta charset=utf-8 />
+<title>EO México City</title>
+
+ <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+<script src="script/jquery.lightbox_me.js"></script>
+
+<link rel="stylesheet" href="assets/css/normalize.css" />
+<link rel="stylesheet" href="assets/css/furatto.css" />
+<link rel="stylesheet" href="assets/css/fon-awesome.css" />
+<link rel="stylesheet" href="assets/css/docs.css" />
+<link rel="stylesheet" href="assets/css/examples.css" />
+
+
+
+
+<script type="text/javascript">
+
+Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
+var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+
+  /**********************/
+  /* document.ready     */
+  /* carga las noticias */
+  /* al abrir la pag    */
+  /**********************/
+
+
+
+  $(document).ready(function(){
+
+    crear_elemntos();
+
+ 
+
+  });
+
+ 
+
+  function crear_elemntos(){
+    if(document.getElementById("tabla") != null)
+       { 
+          var elimina = document.getElementById("tabla");
+          elimina.parentNode.removeChild(elimina);
+        }
+        else  
+    var Noticias = Parse.Object.extend("Noticias");
+    var query  = new Parse.Query(Noticias);
+        query.descending("createdAt");
+
+    var contenido = document.getElementById("contenido");
+    var crear_tabla = document.createElement("table");
+    crear_tabla.setAttribute("id","tabla");
+    crear_tabla.setAttribute("width","200");
+    crear_tabla.setAttribute("border","0");
+    contenido.appendChild(crear_tabla);
+    
+
+
+    query.find({
+      success: function(results){
+        console.log(results);
+        for(var i = 0; i< results.length; i++){
+        
+          var crear_row= document.createElement("tr");
+              crear_tabla.appendChild(crear_row);
+              for(var j = 0; j <= 0; j++){
+                  var crear_cont = document.createElement("p");
+                  var crear_tile = document.createElement("b");
+                  var crear_boton_eliminar = document.createElement("input");
+                      crear_boton_eliminar.setAttribute("class","btn");
+                      crear_boton_eliminar.setAttribute("type","button");
+                      crear_boton_eliminar.setAttribute("id","eliminar");
+                      crear_boton_eliminar.setAttribute("value","Eliminar");
+                      crear_boton_eliminar.setAttribute("onclick","eliminar("+results[i].id.toString()+")");
+                  var crear_boton = document.createElement("input");
+                      crear_boton.setAttribute("class","btn");
+                      crear_boton.setAttribute("type","button");
+                      crear_boton.setAttribute("id","editar");
+                      crear_boton.setAttribute("value","Editar");
+                      crear_boton.setAttribute("onclick","editar("+results[i].id.toString()+")");
+                      crear_tile.setAttribute("id","tt"+i);
+                      crear_cont.setAttribute("id","pb"+i);
+                  var crear_col=document.createElement("td");
+                      crear_col.setAttribute("id",results[i].id);
+                  var crear_img=document.createElement("img");
+                      crear_img.setAttribute("src",results[i].attributes.Imagen.url());
+                      crear_img.setAttribute("width","60");
+                  crear_col.appendChild(crear_img);
+                  crear_col.appendChild(crear_tile);
+                  crear_col.appendChild(crear_cont);
+                  crear_col.appendChild(crear_boton);
+                  crear_col.appendChild(crear_boton_eliminar);
+                  crear_row.appendChild(crear_col);
+                  document.getElementById("pb"+i).innerHTML = (results[i].attributes.Mensaje);
+                  document.getElementById("tt"+i).innerHTML = (results[i].attributes.Titulo);
+
+              }
+
+
+
+        }
+      },
+      error: function(error,messages){
+        alert(error.message);
+      }
+
+    });
+
+  }
+  /*************************/
+  /*function noticias()*****/
+  /*crea una nueva noticia**/
+  /*************************/
+
+  function muestra(){
+    ligth = document.getElementById("not");
+    if(ligth.style.display != "")
+    ligth.style.display = "";
+    else{
+      ligth.style.display = "none";
+    }
+  }
+
+function editar(id){
+  var ides = id.id.toString()
+  window.open("editar.html?"+ides, "_self",false);
+  
+}
+
+
+function eliminar(id){
+  var ides = id.id.toString();
+  console.log(ides);
+ var Noticias = Parse.Object.extend("Noticias");
+        var query  = new Parse.Query(Noticias);
+        query.equalTo("objectId",ides.toString());
+
+        query.find({
+          success: function(results){
+                  results[0].destroy({
+                  success: function(as){
+                   window.open("noticias.html", "_self",false);
+
+
+
+                  },
+                  error: function(error,as){
+
+                  }
+                });
+             
+               },
+          error: function(error,messages){
+      }
+
+    });
+   
+
+        
+}
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+</head>
+<body>
+
+<div class="panels ">
+  <div class="panel panel-left">
+  </div>
+</div>
+
+<div class="panel-content">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner docs-navbar-inner">
+      <div class="container">
+        <a href="#menu" class="menu-trigger meteocon" data-meteocon="M" data-toggle="panel" data-target="#menu"></a>
+        <div class="nav-collapse collapse">
+          <nav id="menu">
+            <ul class="nav docs-navbar-menu">
+              <li><a class="brand" href="principal.html">EO México City</a></li>
+              <li class=""><a href="eventos.html">Eventos</a></li>
+              <li class="active"><a href="miembros.html">Miembros</a></li>
+              <li class=""><a href="mensajes.html">Mensajes</a></li>
+              <li class="active"><a href="noticias.html">Noticias</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <div class="row">
+
+     <div id ="col1" class="col-messages" style = " overflow: scroll;">
+        <div id = "contenido">
+
+        </div>
+
+
+
+     </div>
+
+    <div class="section-jumbo-container" id ="contenedor">
+      <div class = "not" id = "not" >
+
+
+         
+    </div>
+
+
+       
+             <input id="btn_nuevo" type="button" value="Nuevo" class="btn" onclick="window.open('nuevo_noticias.html', '_self',false);"/>
+     
+  </div>
+
+  
+
+  <div class="row footer">
+  <p class="copyright">Copyright <a href="#" class="docs-license">ResponsiveLabs</a></p>
+  <ul class="inline">
+              <li><a class="" href="principal.html">EO México City</a></li>
+
+              <li class=""><a href="eventos.html">Eventos</a></li>
+              
+              </script>
+              <li class="active"><a href="miembros.html">Miembros</a></li>
+              <li class=""><a href="mensajes.html">Mensajes</a></li>
+              <li class="active"><a href="noticias.html">Noticias</a></li>
+  </ul>
+  </div>
+
+</div>
+
+
+  
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/furatto.min.js"></script>
+</body>
+</html>
