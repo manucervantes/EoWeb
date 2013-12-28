@@ -34,7 +34,7 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
   $(document).ready(function(){
     
     var id = document.URL;
-    id = id.replace("file:///Users/manuelcervantes/Documents/EO%20Mexico%20City/editar.html?","")
+    id = id.replace("http://eo-mexico-web.herokuapp.com/editar.html?","")
         var Noticias = Parse.Object.extend("Noticias");
     var query  = new Parse.Query(Noticias);
         query.equalTo("objectId",id.toString());
@@ -59,7 +59,7 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
   function actualizar(){
 var id = document.URL;
-    id = id.replace("file:///Users/manuelcervantes/Documents/EO%20Mexico%20City/editar.html?","")
+    id = id.replace("http://eo-mexico-web.herokuapp.com/editar.html?","")
 var ides = id.toString();
 var titulo = document.getElementById("titulo").value;
 var contenido = document.getElementById("mensaje").value;
