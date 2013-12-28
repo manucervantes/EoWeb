@@ -18,7 +18,7 @@
     $(document).ready(function() {
 
       var ides = document.URL;
-    ides = ides.replace("file:///Users/manuelcervantes/Documents/EO%20Mexico%20City/mas_info.html?","")
+    ides = ides.replace("http://eo-mexico-web.herokuapp.com/mas_info.html?","")
       var mensajes  = Parse.Object.extend("Eventos");
       var query = new Parse.Query(mensajes);
      query.equalTo("objectId",ides.toString());
