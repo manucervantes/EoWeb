@@ -152,7 +152,6 @@
 }
 
 .thumbnails-row {
-  margin-bottom: 20px;
 }
 
 .thumbnail-footer {
@@ -163,5 +162,10 @@
 
 .thumbnail-footer a {
   color: #FFF; 
+}
+.trunca{
+  max-width: 10px;
+  word-wrap: break-word;
+
 }
 

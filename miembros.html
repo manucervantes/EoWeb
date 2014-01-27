@@ -3,6 +3,10 @@
 <head>
 <meta charset=utf-8 />
 <title>Furatto :: Landing</title>
+ <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+<script src="script/jquery.lightbox_me.js"></script>
 <link rel="stylesheet" href="assets/css/normalize.css" />
 <link rel="stylesheet" href="assets/css/furatto.css" />
 <link rel="stylesheet" href="assets/css/font-awesome.css" />
@@ -10,6 +14,126 @@
 <link rel="stylesheet" href="assets/css/examples.css" />
 <link rel="shortcut icon" href="assets/img/favicon.ico" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+
+<script type="text/javascript">
+
+Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
+var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+
+$(document).ready(function() {
+      var mensajes  = Parse.Object.extend("Perfil");
+      var query = new Parse.Query(mensajes);
+      var a;
+     
+      query.find({
+        success:function(results){
+
+          var crear_elements = document.getElementById("miembros")
+
+            var crear_tabla =  document.createElement("table");
+               
+                crear_tabla.setAttribute("class","table table-condensed responsive");
+                crear_elements.appendChild(crear_tabla);
+                var crear_encabezados= document.createElement("tr");
+
+                crear_tabla.appendChild(crear_encabezados);
+                var encabezado_imagen=document.createElement("td");
+                var encabezado_nombres=document.createElement("td");
+                var encabezado_empesas=document.createElement("td");
+                var encabezado_puestos=document.createElement("td");
+
+
+                encabezado_imagen.setAttribute("id","image");
+                encabezado_nombres.setAttribute("id","encabezado_nombre");
+                encabezado_empesas.setAttribute("id","encabezado_empesa");
+                encabezado_puestos.setAttribute("id","encabezado_puesto");
+                
+                 crear_encabezados.appendChild(encabezado_imagen);
+                crear_encabezados.appendChild(encabezado_nombres);
+                crear_encabezados.appendChild(encabezado_empesas);
+                crear_encabezados.appendChild(encabezado_puestos);
+
+                document.getElementById("encabezado_nombre").innerHTML = "<b>Nombre</b>";
+                document.getElementById("encabezado_empesa").innerHTML = "<b>Empresa</b>";
+                document.getElementById("encabezado_puesto").innerHTML = "<b>Puesto</b>";
+                document.getElementById("image").innerHTML = "<b>Imagen de Perfil</b>";
+
+
+                console.log(results);
+            for( var i=0;i<results.length;i++){
+                 var crear_row= document.createElement("tr");
+                 crear_tabla.appendChild(crear_row);
+                 for(var j=0; j<=0;j++){                     
+                    var crear_nombre = document.createElement("p");
+                    crear_nombre.setAttribute("id","name"+i);
+
+                    var crear_empresa= document.createElement("p");
+                    crear_empresa.setAttribute("id","empresa"+i);
+
+                    var crear_puesto= document.createElement("p");
+                    crear_puesto.setAttribute("id","puesto"+i);
+
+                    var crear_eliminar= document.createElement("button");
+                    crear_eliminar.setAttribute("class","btn btn-danger");
+                    crear_eliminar.setAttribute("id","suprimir"+i);
+
+
+               
+
+                     var crear_img=document.createElement("img");
+                      crear_img.setAttribute("src",results[i].attributes.foto.url());
+                      crear_img.setAttribute("width","80");
+                  
+                   var crear_col_image=document.createElement("td");
+                      crear_col_image.setAttribute("id",results[i].id);
+
+                    var crear_col_nombre=document.createElement("td");
+                    var crear_col_empresa = document.createElement("td");
+                    var crear_col_puesto = document.createElement("td");
+                    var crear_col_eliminar = document.createElement("td");
+
+                    crear_col_image.appendChild(crear_img);
+                    crear_col_nombre.appendChild(crear_nombre);
+                    crear_col_empresa.appendChild(crear_empresa);
+                    crear_col_puesto.appendChild(crear_puesto);
+                    crear_col_eliminar.appendChild(crear_eliminar);
+
+                    crear_row.appendChild(crear_col_image);
+                    crear_row.appendChild(crear_col_nombre);
+                    crear_row.appendChild(crear_col_empresa);
+                    crear_row.appendChild(crear_col_puesto);
+                    crear_row.appendChild(crear_col_eliminar);
+
+                    document.getElementById("name"+i).innerHTML = (results[i].attributes.nombre);
+                    document.getElementById("empresa"+i).innerHTML = (results[i].attributes.empresa);
+                    document.getElementById("puesto"+i).innerHTML = (results[i].attributes.puesto);
+
+                  var position_button_delete = document.getElementById("suprimir"+i);
+                     var icon_delete = document.createElement("i");
+                      icon_delete.setAttribute("class","icon-trash");
+
+                      position_button_delete.appendChild(icon_delete);                    
+
+
+                  }
+                }
+                                         
+
+          
+        },
+
+        error: function(error){
+          alert("¡Ups Algo salio mal !");
+        }
+      });
+
+  });
+
+
+
+
+
+</script>
 </head>
 <body>
 
@@ -32,16 +156,15 @@
               <li class=""><a href="mensajes.html">Mensajes</a></li>
               <li class="active"><a href="noticias.html">Noticias</a></li>
             </ul>
+            
           </nav>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="section-jumbo-container">
-      <h1 class="jumbo-header">Hello World!</h1> 
-      <p class="motto">This is a template intended to work as a landing page.</p>
-    </div>
+     <div id = "miembros">
+      </div>
   </div>
 
   

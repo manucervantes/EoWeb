@@ -89,14 +89,16 @@
   background-color: transparent;  
 }
 
+.color_corp{
+  background-color: white  !important;
+
+
+}
 tr, td, img{
-  text-align: left;
+  text-align: center;
 }
 
-#invitaciones{
-  position: relative;
-  margin-left: 20%;
-}
+
 
 #tabla_inv{
 
@@ -316,5 +318,11 @@ height: 470px;
 
 .thumbnail-footer a {
   color: #FFF; 
+}
+
+
+.trunca{
+  max-height: 20% !important;
+  overflow: hidden;
 }
 

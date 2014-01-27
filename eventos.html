@@ -2,184 +2,155 @@
 <html class="">
 <head>
 <meta charset=utf-8 />
-<title>EO México City</title>
-
+<title>Furatto :: Landing</title>
  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 <script src="script/jquery.lightbox_me.js"></script>
-
 <link rel="stylesheet" href="assets/css/normalize.css" />
 <link rel="stylesheet" href="assets/css/furatto.css" />
-<link rel="stylesheet" href="assets/css/fon-awesome.css" />
+<link rel="stylesheet" href="assets/css/font-awesome.css" />
 <link rel="stylesheet" href="assets/css/docs.css" />
 <link rel="stylesheet" href="assets/css/examples.css" />
-
-
-
+<link rel="shortcut icon" href="assets/img/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 
 <script type="text/javascript">
 
 Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
 var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
-  /**********************/
-  /* document.ready     */
-  /* carga las noticias */
-  /* al abrir la pag    */
-  /**********************/
+$(document).ready(function() {
+      var mensajes  = Parse.Object.extend("Eventos");
+      var query = new Parse.Query(mensajes);
+      var a;
+     
+      query.find({
+        success:function(results){
+
+          var crear_elements = document.getElementById("eventos")
+
+            var crear_tabla =  document.createElement("table");
+               
+                crear_tabla.setAttribute("class","table table-condensed responsive");
+                crear_elements.appendChild(crear_tabla);
+                var crear_encabezados= document.createElement("tr");
+
+                crear_tabla.appendChild(crear_encabezados);
+                var encabezado_nombres=document.createElement("td");
+                var encabezado_empesas=document.createElement("td");
+                var encabezado_inicios=document.createElement("td");
+                var encabezado_fins = document.createElement("td");
+                var encabezado_editar=document.createElement("td");
 
 
 
-  $(document).ready(function(){
+                encabezado_nombres.setAttribute("id","encabezado_nombre");
+                encabezado_empesas.setAttribute("id","encabezado_empesa");
+                encabezado_inicios.setAttribute("id","encabezado_inicio");
+                encabezado_fins.setAttribute("id","encabezado_fin");
+                encabezado_editar.setAttribute("id","edt");
 
-    crear_elemntos();
+                
+                crear_encabezados.appendChild(encabezado_nombres);
+                crear_encabezados.appendChild(encabezado_empesas);
+                crear_encabezados.appendChild(encabezado_inicios);
+                crear_encabezados.appendChild(encabezado_fins);
+
+                document.getElementById("encabezado_nombre").innerHTML = "<b>Evento</b>";
+                document.getElementById("encabezado_empesa").innerHTML = "<b>Detalle del Evento</b>";
+                document.getElementById("encabezado_inicio").innerHTML = "<b>Fecha y Hora de Inicio</b>";
+                document.getElementById("encabezado_fin").innerHTML = "<b>Fecha y Hora de Termino</b>";
 
 
- 
+                console.log(results);
+            for( var i=0;i<results.length;i++){
+                 var crear_row= document.createElement("tr");
+                 crear_tabla.appendChild(crear_row);
+                 for(var j=0; j<=0;j++){                     
+                    var crear_titulo = document.createElement("p");
+                    crear_titulo.setAttribute("id","titulo"+i);
+
+                    var crear_mensaje= document.createElement("p");
+                    crear_mensaje.setAttribute("id","descripcion"+i);
+
+                    var crear_inicio= document.createElement("p");
+                    crear_inicio.setAttribute("id","inicio"+i);
+
+                    var crear_fin = document.createElement("p");
+                    crear_fin.setAttribute("id","fin"+i);
+
+                    var crear_eliminar= document.createElement("button");
+                    crear_eliminar.setAttribute("class","btn btn-danger");
+                    crear_eliminar.setAttribute("id","suprimir"+i);
+
+
+                  var button_edit = document.createElement("button");
+                      button_edit.setAttribute("class","btn btn-success");
+                      button_edit.setAttribute("id","edit"+i);
+                      button_edit.setAttribute("onclick","editar("+i+")");
+
+                  var crear_col_editar = document.createElement("td");
+                      crear_col_editar.appendChild(button_edit);
+
+
+
+                    var crear_col_titulo=document.createElement("td");
+                    var crear_col_mensaje = document.createElement("td");
+                    var crear_col_inicio = document.createElement("td");
+                    var crear_col_fin = document.createElement("td");
+                    var crear_col_eliminar = document.createElement("td");
+
+                    crear_col_titulo.appendChild(crear_titulo);
+                    crear_col_mensaje.appendChild(crear_mensaje);
+                    crear_col_inicio.appendChild(crear_inicio);
+                    crear_col_fin.appendChild(crear_fin);
+                    crear_col_eliminar.appendChild(crear_eliminar);
+
+                    crear_row.appendChild(crear_col_titulo);
+                    crear_row.appendChild(crear_col_mensaje);
+                    crear_row.appendChild(crear_col_inicio);
+                    crear_row.appendChild(crear_col_fin);
+                    crear_row.appendChild(crear_col_editar);
+                    crear_row.appendChild(crear_col_eliminar);
+
+                    document.getElementById("titulo"+i).innerHTML = (results[i].attributes.Titulo);
+                    document.getElementById("descripcion"+i).innerHTML = (results[i].attributes.Descripcion);
+                    document.getElementById("inicio"+i).innerHTML = (results[i].attributes.Fecha_inicio);
+                    document.getElementById("fin"+i).innerHTML = (results[i].attributes.Fecha_termino);
+                    var position_button_delete = document.getElementById("suprimir"+i);
+                     var icon_delete = document.createElement("i");
+                      icon_delete.setAttribute("class","icon-trash");
+
+                      position_button_delete.appendChild(icon_delete);
+
+
+                   var position_button_edit = document.getElementById("edit"+i)
+                  var icon_edit = document.createElement("i");
+                      icon_edit.setAttribute("class","icon-edit");
+                      position_button_edit.appendChild(icon_edit);
+
+
+
+                  }
+                }
+                                         
+
+          
+        },
+
+        error: function(error){
+          alert("¡Ups Algo salio mal !");
+        }
+      });
 
   });
 
- 
-
-  function crear_elemntos(){
-    if(document.getElementById("tabla") != null)
-       { 
-          var elimina = document.getElementById("tabla");
-          elimina.parentNode.removeChild(elimina);
-        }
-        else  
-    var Noticias = Parse.Object.extend("Eventos");
-    var query  = new Parse.Query(Noticias);
-        query.descending("createdAt");
-
-    var contenido = document.getElementById("contenido");
-    var crear_tabla = document.createElement("table");
-    crear_tabla.setAttribute("id","tabla");
-    crear_tabla.setAttribute("width","200");
-    crear_tabla.setAttribute("border","0");
-    contenido.appendChild(crear_tabla);
-    
-
-
-    query.find({
-      success: function(results){
-        console.log(results[0].attributes.Titulo);
-        for(var i = 0; i< results.length; i++){
-        
-          var crear_row= document.createElement("tr");
-              crear_tabla.appendChild(crear_row);
-              for(var j = 0; j <= 0; j++){
-                  var crear_cont = document.createElement("p");
-                  var crear_cont2= document.createElement("f");
-                  var crear_tile = document.createElement("b");
-                  var crear_boton_eliminar = document.createElement("input");
-                      crear_boton_eliminar.setAttribute("class","btn");
-                      crear_boton_eliminar.setAttribute("type","button");
-                      crear_boton_eliminar.setAttribute("id","eliminar");
-                      crear_boton_eliminar.setAttribute("value","Eliminar");
-                      crear_boton_eliminar.setAttribute("onclick","eliminar("+results[i].id.toString()+")");
-                  var crear_boton = document.createElement("input");
-                      crear_boton.setAttribute("class","btn");
-                      crear_boton.setAttribute("type","button");
-                      crear_boton.setAttribute("id","editar");
-                      crear_boton.setAttribute("value","Editar");
-                      crear_boton.setAttribute("onclick","editar("+results[i].id.toString()+")");
-                      
-                  var crear_boton_mas = document.createElement("input");
-                      crear_boton_mas.setAttribute("class","btn");
-                      crear_boton_mas.setAttribute("type","button");
-                      crear_boton_mas.setAttribute("id","mas");
-                      crear_boton_mas.setAttribute("value","Mas info");
-                      crear_boton_mas.setAttribute("onclick","mas("+results[i].id.toString()+")");
-
-
-                      crear_tile.setAttribute("id","tt"+i);
-                      crear_cont.setAttribute("id","pb"+i);
-                      crear_cont2.setAttribute("id","pr"+i);
-                  var crear_col=document.createElement("td");
-                      crear_col.setAttribute("id",results[i].id);
-                  crear_col.appendChild(crear_tile);
-                  crear_col.appendChild(crear_cont);
-                  crear_col.appendChild(crear_cont2);
-                  crear_col.appendChild(crear_boton);
-                  crear_col.appendChild(crear_boton_mas);
-                  crear_col.appendChild(crear_boton_eliminar);
-                  crear_row.appendChild(crear_col);
-                  document.getElementById("tt"+i).innerHTML = (results[i].attributes.Titulo);
-                  document.getElementById("pb"+i).innerHTML = ("Inicia "+results[i].attributes.Fecha_inicio);
-                  document.getElementById("pr"+i).innerHTML = ("Termina "+results[i].attributes.Fecha_termino);
-
-              }
 
 
 
-        }
-      },
-      error: function(error,messages){
-        alert(error.message);
-      }
 
-    });
-
-  }
-  /*************************/
-  /*function noticias()*****/
-  /*crea una nueva noticia**/
-  /*************************/
-
-  function muestra(){
-    ligth = document.getElementById("not");
-    if(ligth.style.display != "")
-    ligth.style.display = "";
-    else{
-      ligth.style.display = "none";
-    }
-  }
-
-function editar(id){
-  var ides = id.id.toString()
-  window.open("editar_evento.html?"+ides, "_self",false);
-  
-}
-
-function mas(id){
-  var ides = id.id.toString()
-  window.open("mas_info.html?"+ides, "_self",false);
-
-}
-
-function eliminar(id){
-  var ides = id.id.toString();
- var Noticias = Parse.Object.extend("Eventos");
-        var query  = new Parse.Query(Noticias);
-        query.equalTo("objectId",ides.toString());
-
-        query.find({
-          success: function(results){
-                  results[0].destroy({
-                  success: function(as){
-                   window.open("eventos.html", "_self",false);
-
-
-
-                  },
-                  error: function(error,as){
-
-                  }
-                });
-             
-               },
-          error: function(error,messages){
-      }
-
-    });
-   
-
-        
-}
 </script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 </head>
 <body>
 
@@ -202,33 +173,22 @@ function eliminar(id){
               <li class=""><a href="mensajes.html">Mensajes</a></li>
               <li class="active"><a href="noticias.html">Noticias</a></li>
             </ul>
+             <form  action = "nuevo_evento.html" accept-charset="utf-8" class="navbar-form pull-right search-navbar-form">
+              
+               <button  class="btn btn-success icon-file" id="new_news">
+              </button>
+              
+              <div class="form-fields">
+              
+            </form>
           </nav>
         </div>
       </div>
     </div>
-  </div>  
+  </div>
   <div class="row">
-
-     <div id ="col1" class="col-messages" style = " overflow: scroll;">
-        <div id = "contenido">
-
-        </div>
-
-
-
-     </div>
-
-    <div class="section-jumbo-container" id ="contenedor">
-      <div class = "not" id = "not" >
-
-
-         
-    </div>
-
-
-       
-             <input id="btn_nuevo" type="button" value="Nuevo" class="btn" onclick="window.open('nuevo_evento.html', '_self',false);"/>
-     
+     <div id = "eventos">
+      </div>
   </div>
 
   
@@ -236,11 +196,8 @@ function eliminar(id){
   <div class="row footer">
   <p class="copyright">Copyright <a href="#" class="docs-license">ResponsiveLabs</a></p>
   <ul class="inline">
-              <li><a class="" href="principal.html">EO México City</a></li>
-
+              <li><a class="brand" href="principal.html">EO México City</a></li>
               <li class=""><a href="eventos.html">Eventos</a></li>
-              
-              </script>
               <li class="active"><a href="miembros.html">Miembros</a></li>
               <li class=""><a href="mensajes.html">Mensajes</a></li>
               <li class="active"><a href="noticias.html">Noticias</a></li>
@@ -249,8 +206,8 @@ function eliminar(id){
 
 </div>
 
-
   
+
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/furatto.min.js"></script>
 </body>

@@ -27,21 +27,75 @@
 
             var crear_tabla =  document.createElement("table");
                 //∫crear_tabla = setAttribute("id","tabla_inv");
-                crear_tabla.setAttribute("border","1");
-                crear_tabla.setAttribute("width","200");
+               
+                crear_tabla.setAttribute("class","table table-condensed responsive");
                 crear_elements.appendChild(crear_tabla);
+                var crear_encabezados= document.createElement("tr");
+
+                crear_tabla.appendChild(crear_encabezados);
+                var encabezado_nombres=document.createElement("td");
+                var encabezado_empesas=document.createElement("td");
+                var encabezado_emails=document.createElement("td");
+
+                encabezado_nombres.setAttribute("id","encabezado_nombre");
+                encabezado_empesas.setAttribute("id","encabezado_empesa");
+                encabezado_emails.setAttribute("id","encabezado_email");
+                crear_encabezados.appendChild(encabezado_nombres);
+                crear_encabezados.appendChild(encabezado_empesas);
+                crear_encabezados.appendChild(encabezado_emails);
+                document.getElementById("encabezado_nombre").innerHTML = "<b>Nombre</b>";
+                document.getElementById("encabezado_empesa").innerHTML = "<b>Empresa</b>";
+                document.getElementById("encabezado_email").innerHTML = "<b>Email</b>";
+
+
                 console.log(results);
             for( var i=0;i<results.length;i++){
                  var crear_row= document.createElement("tr");
                  crear_tabla.appendChild(crear_row);
                  for(var j=0; j<=0;j++){                     
                     var crear_nombre = document.createElement("p");
-                  
-                      crear_nombre.setAttribute("id","pb"+i);
-                  var crear_col=document.createElement("td");
-                      crear_col.appendChild(crear_nombre);
-                      crear_row.appendChild(crear_col);
-                      document.getElementById("pb"+i).innerHTML = (results[i].attributes.Nombre +"  "+results[i].attributes.Email+"  "+results[i].attributes.Empresa);
+                    crear_nombre.setAttribute("id","name"+i);
+
+                    var crear_empresa= document.createElement("p");
+                    crear_empresa.setAttribute("id","empresa"+i);
+
+                    var crear_email= document.createElement("p");
+                    crear_email.setAttribute("id","email"+i);
+
+                    var crear_eliminar= document.createElement("button");
+                    crear_eliminar.setAttribute("class","btn btn-danger");
+                    crear_eliminar.setAttribute("id","suprimir"+i);
+
+                    var crear_enviar_email= document.createElement("button");
+                    crear_enviar_email.setAttribute("class","btn btn-info");
+                    crear_enviar_email.setAttribute("id","enviar_email"+i);
+
+
+                    var crear_col_nombre=document.createElement("td");
+                    var crear_col_empresa = document.createElement("td");
+                    var crear_col_email = document.createElement("td");
+                    var crear_col_eliminar = document.createElement("td");
+                    var crear_col_enviar_email = document.createElement("td");
+
+
+                    crear_col_nombre.appendChild(crear_nombre);
+                    crear_col_empresa.appendChild(crear_empresa);
+                    crear_col_email.appendChild(crear_email);
+                    crear_col_eliminar.appendChild(crear_eliminar);
+                    crear_col_enviar_email.appendChild(crear_enviar_email);
+
+
+                    crear_row.appendChild(crear_col_nombre);
+                    crear_row.appendChild(crear_col_empresa);
+                    crear_row.appendChild(crear_col_email);
+                    crear_row.appendChild(crear_col_enviar_email);
+                    crear_row.appendChild(crear_col_eliminar);
+
+                    document.getElementById("name"+i).innerHTML = (results[i].attributes.Nombre);
+                    document.getElementById("empresa"+i).innerHTML = (results[i].attributes.Empresa);
+                    document.getElementById("email"+i).innerHTML = (results[i].attributes.Email);
+                    document.getElementById("suprimir"+i).innerHTML = "Eliminar";
+                    document.getElementById("enviar_email"+i).innerHTML = "Enviar Invitacion";
 
 
                   }
@@ -65,6 +119,7 @@
 
   <div class="panels ">
     <div class="panel panel-left">
+
     </div>
   </div>
 
@@ -88,7 +143,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="section-jumbo-container">
+      <div class="color_corp ">
         <div id = "invitaciones"></div>
        
       </div>
