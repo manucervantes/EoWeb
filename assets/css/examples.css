@@ -51,12 +51,14 @@
   margin-top: -7%;
 }
 #titulo{
+    width: 130%;
+
 
 }
 
 #mensaje{
   height: 200px;
-  width: 100%;
+  width: 130%;
 }
 @media (max-width: 767px) {
   .not {
@@ -65,8 +67,7 @@
 }
 
 .btn-mens{
-  background-color: #111;
-  margin-left: 80%;
+  margin-left: 108%;
 
 }
 
@@ -207,7 +208,9 @@ tr, td, img{
 }
 #contenedor{
 width: auto;
+margin-top: 10%;
 height: 470px;
+background-color: white !important;
 
 }
 #inicio{
@@ -325,4 +328,5 @@ height: 470px;
   max-height: 20% !important;
   overflow: hidden;
 }
+
 

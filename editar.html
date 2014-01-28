@@ -32,6 +32,10 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
 
   $(document).ready(function(){
+          var user = new Parse.User.current();
+      if(user == null){
+               window.open("log.html", "_self",false);
+      }
     
     var id = document.URL;
     id = id.replace("http://eo-mexico-web.herokuapp.com/editar.html?","")

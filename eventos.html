@@ -24,7 +24,11 @@ $(document).ready(function() {
       var mensajes  = Parse.Object.extend("Eventos");
       var query = new Parse.Query(mensajes);
       var a;
-     
+      var user = new Parse.User.current();
+      if(user == null){
+               window.open("log.html", "_self",false);
+      }
+      user.cu
       query.find({
         success:function(results){
 

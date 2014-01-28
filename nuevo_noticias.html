@@ -35,9 +35,11 @@
 
   $(document).ready(function(){
 
+      var user = new Parse.User.current();
+      if(user == null){
+               window.open("log.html", "_self",false);
+      }
     crear_elemntos();
-  console.log("adsfdsfdssd");
-
  
 
   });
@@ -124,9 +126,7 @@
     </div>
   </div>  
   <div class="row">
-
-
-    <div class="section-jumbo-container" id ="contenedor">
+    <div class="" id ="contenedor">
       <div class = "not" id = "not" >
 
 
@@ -141,7 +141,7 @@
          <textarea id="mensaje" rows = "8" placeholder="Mensaje"></textarea></div>
          <input type="file" id="profilePhotoFileUpload">
 
-          <input type="button" name="" id="" value="Crear" class="btn btn-mens btn-success" onClick = noticias(); />
+          <input type="button" name="" id="" value="Crear" class="btn btn-mens btn-warning" onClick = noticias(); />
 
          
     </div>            

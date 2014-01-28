@@ -21,6 +21,10 @@ Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEP
 var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
 $(document).ready(function() {
+        var user = new Parse.User.current();
+      if(user == null){
+               window.open("log.html", "_self",false);
+      }
       var mensajes  = Parse.Object.extend("Perfil");
       var query = new Parse.Query(mensajes);
       var a;
@@ -156,7 +160,7 @@ $(document).ready(function() {
               <li class=""><a href="mensajes.html">Mensajes</a></li>
               <li class="active"><a href="noticias.html">Noticias</a></li>
             </ul>
-            
+
           </nav>
         </div>
       </div>

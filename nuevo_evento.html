@@ -40,6 +40,10 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
 
   $(document).ready(function(){
+          var user = new Parse.User.current();
+      if(user == null){
+               window.open("log.html", "_self",false);
+      }
 
 
  
@@ -119,7 +123,7 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
   <div class="row">
 
 
-    <div class="section-jumbo-container" id ="contenedor">
+    <div class="" id ="contenedor">
       <div class = "not" id = "not" >
 
 
@@ -132,16 +136,16 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
        <div class="form-fields">
          <label id = "label_mensaje">Descripcion:</h1>
-         <textarea id="mensaje" rows = "7" placeholder="Mensaje"></textarea></div>
+         <input id="mensaje" rows = "7" placeholder="Mensaje" class="input-block"></input></div>
 
         
           <div id="calendario">
             <div id ="inicio">
 
-            <table width="200" border="0" class = "fechas">
+            <table width="390" border="0" class = "fechas">
             <tr>
               <td><label>Inicia </label>
-                <input type="text" id="datepicker">
+                <input type="text" id="datepicker" class="input-block">
                 <script type="text/javascript">
                 $('#datepicker').datetimepicker();
               </script>
@@ -150,7 +154,7 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
               <label></label></td>
               
               <td>Termina
-              <input type="text" id="datepickerend"></td>
+              <input  type = "text" id="datepickerend" class="input-block"></td>
               <script type="text/javascript">
                $('#datepickerend').datetimepicker();
               </script>

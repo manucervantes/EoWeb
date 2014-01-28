@@ -16,7 +16,10 @@
   Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
 
     $(document).ready(function() {
-
+      var user = new Parse.User.current();
+      if(user == null){
+               window.open("log.html", "_self",false);
+      }
       var ides = document.URL;
     ides = ides.replace("http://eo-mexico-web.herokuapp.com/mas_info.html?","")
       var mensajes  = Parse.Object.extend("Eventos");
