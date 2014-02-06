@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="">
+<head>
+<meta charset=utf-8 />
+<title>EO Mexico :: City</title>
+ <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+<script src="script/jquery.lightbox_me.js"></script>
+<link rel="stylesheet" href="assets/css/normalize.css" />
+<link rel="stylesheet" href="assets/css/furatto.css" />
+<link rel="stylesheet" href="assets/css/font-awesome.css" />
+<link rel="stylesheet" href="assets/css/docs.css" />
+<link rel="stylesheet" href="assets/css/examples.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+
+<script type="text/javascript">
+
+Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
+var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+ var asistentes_general = new Array();
+ var asistentes = new Array();
+ var acompañantes = new Array();
+$(document).ready(function() {
+   var asistentes = new Array();
+
+      var user = new Parse.User.current();
+      if(user == null){
+       window.open("log.html", "_self",false);
+      }
+
+    var id = document.URL;
+        id = id.replace("file:///Users/manuelcervantes/Music/EO/evento_detalle.html?","")
+    var titulo = document.getElementById("titulo_evento");
+    var texto_titulo = document.createElement("div");
+        texto_titulo.setAttribute("id","titletext"); 
+
+    var texto_inicio = document.createElement("div");
+        texto_inicio.setAttribute("id","iniciotext");
+
+    var texto_fin = document.createElement("div");
+        texto_fin.setAttribute("id","fintext");       
+       
+        titulo.appendChild(texto_titulo);
+        titulo.appendChild(texto_inicio);
+        titulo.appendChild(texto_fin);
+
+     var crear_elements = document.getElementById("asistentes-table");
+     var crear_tabla =  document.createElement("table");
+         crear_tabla.setAttribute("class","table table-condensed responsive");
+         crear_tabla.setAttribute("id","tabla");
+         crear_elements.appendChild(crear_tabla);
+     var crear_encabezados= document.createElement("tr");
+         crear_tabla.appendChild(crear_encabezados);
+     var encabezado_nombres=document.createElement("td");
+     var encabezado_empesas=document.createElement("td");
+     var encabezado_asisten=document.createElement("td");
+
+         encabezado_nombres.setAttribute("id","encabezado_nombre");
+         encabezado_empesas.setAttribute("id","encabezado_empesa");
+         encabezado_asisten.setAttribute("id","encabezado_asiste");
+
+         crear_encabezados.appendChild(encabezado_nombres);
+         crear_encabezados.appendChild(encabezado_empesas);
+         crear_encabezados.appendChild(encabezado_asisten);
+         document.getElementById("encabezado_nombre").innerHTML = "<b>Nombre</b>";
+         document.getElementById("encabezado_empesa").innerHTML = "<b>Empresa</b>";
+         document.getElementById("encabezado_asiste").innerHTML = "<b>Asiste</b>";
+
+
+                       
+
+
+    var Eventos = Parse.Object.extend("Eventos");
+    var query  = new Parse.Query(Eventos);
+        query.equalTo("objectId",id.toString());
+    
+    query.find({
+      success: function(results){
+              asistentes_general = results[0].attributes.Asiste;
+
+              for(var i = 0; i < asistentes_general.length; i++){
+                 asistentes[i] = asistentes_general[i][0];
+                 acompañantes[i] = asistentes_general[i][1];
+              }
+
+            document.getElementById("titletext").innerHTML = "<h3>"+results[0].attributes.Titulo+"</h3>";
+            document.getElementById("iniciotext").innerHTML = "<h5>Inicia <br>"+results[0].attributes.Fecha_inicio+"</h5>";
+            document.getElementById("fintext").innerHTML = "<h5>Termina <br>"+results[0].attributes.Fecha_termino+"</h5>";
+
+            var anidado = Parse.Object.extend("Perfil");
+            var query_anidado = new Parse.Query(anidado);
+                query_anidado.find({
+                  success: function(algi){
+                   escribe(asistentes,acompañantes,algi);
+                     },
+                  error: function(e,m){
+                    console.log(e);
+                    console.log(m);
+                  }
+
+                });
+          
+
+/*
+            var Perfiles = Parse.Object.extend("Perfil");
+            var uses = Parse.Object.extend("User");
+            var query2 = new Parse.Query(Perfiles);
+            var arreglo = new Array();
+              for(var i = 0; i < asistentes.length; i++ ){
+                  arreglo[i] = asistentes[i];
+              }
+              console.log("arreglo   "+arreglo[0]);
+                console.log(query2.equalTo("User",arreglo[0]));
+
+                query2.find({
+                  success: function(finds){
+                    console.log(finds);
+                  },
+                  error: function(e,m){
+                    console.log(e);
+                    console.log(m);
+
+                  }
+                   
+
+
+
+
+        });*/
+
+
+               },
+      error: function(error,messages){
+        alert(error.message);
+      }
+
+    });
+    
+
+          
+
+
+
+  });
+
+
+
+function escribe(asis,acomp,datos){
+  console.log(asis.length);
+  console.log(acomp.length);
+  console.log(datos.length);
+  console.log("asd");
+                  for(var o = 0; o < asis.length; o++){
+                       console.log(o);
+                        for(var p = 0; p < datos.length; p++){
+                          if(asis[o] == datos[p].attributes.User.id){
+                            console.log(datos[p].attributes.nombre);
+                            var crear_tabla = document.getElementById("tabla");
+                            console.log(crear_tabla );
+                            var crear_row= document.createElement("tr");
+                                crear_tabla.appendChild(crear_row);
+                            var crear_nombre = document.createElement("p");
+                                crear_nombre.setAttribute("id","nombre"+o);
+
+                            var crear_empresa = document.createElement("p");
+                                crear_empresa.setAttribute("id","empres"+o);
+                            var crear_asistencia = document.createElement("p");
+                                crear_asistencia.setAttribute("id","asist"+o);
+
+
+                            var crear_col_nombre=document.createElement("td");
+                                crear_col_nombre.appendChild(crear_nombre);
+
+                            var crear_col_nombre2=document.createElement("td");
+                                crear_col_nombre2.appendChild(crear_empresa);
+
+                            var crear_col_nombre3=document.createElement("td");
+                                crear_col_nombre3.appendChild(crear_asistencia);
+                                crear_row.appendChild(crear_col_nombre);
+                                crear_row.appendChild(crear_col_nombre2);
+                                crear_row.appendChild(crear_col_nombre3);
+
+
+                                document.getElementById("nombre"+o).innerHTML = [datos[p].attributes.nombre];
+                                document.getElementById("empres"+o).innerHTML = [datos[p].attributes.empresa];
+                                if(acomp[o] == 0){
+                                  document.getElementById("asist"+o).innerHTML = "No Asiste";
+
+                                }else if(acomp[o] == 1){
+
+                                  document.getElementById("asist"+o).innerHTML = "Asiste Solo";
+
+                                }else if(acomp[o] == 2){
+                                document.getElementById("asist"+o).innerHTML = "Asiste acompañado";
+
+
+                                }
+
+                          }
+
+                        }
+                      }
+}
+
+</script>
+</head>
+<body>
+
+<div class="panels ">
+  <div class="panel panel-left">
+  </div>
+</div>
+
+<div class="panel-content">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner docs-navbar-inner">
+      <div class="container">
+        <a href="#menu" class="menu-trigger meteocon" data-meteocon="M" data-toggle="panel" data-target="#menu"></a>
+        <div class="nav-collapse collapse">
+          <nav id="menu">
+            <ul class="nav docs-navbar-menu">
+              <li><a class="brand" href="principal.html">EO México City</a></li>
+              <li class=""><a href="eventos.html">Eventos</a></li>
+              <li class="active"><a href="miembros.html">Miembros</a></li>
+              <li class=""><a href="mensajes.html">Mensajes</a></li>
+              <li class="active"><a href="noticias.html">Noticias</a></li>
+            </ul>
+             <form  action = "nuevo_evento.html" accept-charset="utf-8" class="navbar-form pull-right search-navbar-form">
+              
+               <button  class="btn btn-success icon-file" id="new_news">
+              </button>
+              
+              <div class="form-fields">
+              
+            </form>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="general">
+     <div id = "    ">
+        <div id ="titulo_evento">
+        </div>
+      </div>
+     <div id = "asistentes-table">
+     </div>
+  </div>
+
+  
+
+  <div class="row footer">
+  <p class="copyright">Copyright <a href="#" class="docs-license">ResponsiveLabs</a></p>
+  <ul class="inline">
+              <li><a class="brand" href="principal.html">EO México City</a></li>
+              <li class=""><a href="eventos.html">Eventos</a></li>
+              <li class="active"><a href="miembros.html">Miembros</a></li>
+              <li class=""><a href="mensajes.html">Mensajes</a></li>
+              <li class="active"><a href="noticias.html">Noticias</a></li>
+  </ul>
+  </div>
+
+</div>
+
+  
+
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/furatto.min.js"></script>
+</body>
+</html>

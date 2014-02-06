@@ -328,5 +328,20 @@ background-color: white !important;
   max-height: 20% !important;
   overflow: hidden;
 }
+#titulo_evento{
+  background-color: #D8D8D8;
+}
+#iniciotext{
+  position: absolute;
+  left: 20%;
+  margin-top:-4.5%;
+
+}
+#fintext{
+  position: absolute;
+  left: 40%;
+  margin-top:-4.5%;
+
+}
 
 

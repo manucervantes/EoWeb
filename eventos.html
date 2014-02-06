@@ -19,6 +19,7 @@
 
 Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
 var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+    var ides = new Array();
 
 $(document).ready(function() {
       var mensajes  = Parse.Object.extend("Eventos");
@@ -74,6 +75,8 @@ $(document).ready(function() {
                  for(var j=0; j<=0;j++){                     
                     var crear_titulo = document.createElement("p");
                     crear_titulo.setAttribute("id","titulo"+i);
+                    crear_titulo.setAttribute("onclick","detalle("+i+")");
+
 
                     var crear_mensaje= document.createElement("p");
                     crear_mensaje.setAttribute("id","descripcion"+i);
@@ -117,7 +120,8 @@ $(document).ready(function() {
                     crear_row.appendChild(crear_col_fin);
                     crear_row.appendChild(crear_col_editar);
                     crear_row.appendChild(crear_col_eliminar);
-
+                    ides[i]= results[i].id;
+                   
                     document.getElementById("titulo"+i).innerHTML = (results[i].attributes.Titulo);
                     document.getElementById("descripcion"+i).innerHTML = (results[i].attributes.Descripcion);
                     document.getElementById("inicio"+i).innerHTML = (results[i].attributes.Fecha_inicio);
@@ -150,8 +154,17 @@ $(document).ready(function() {
 
   });
 
+function detalle(id){
 
 
+  window.open("evento_detalle.html?"+ides[id], "_self",false);
+
+
+}
+function editar(id){
+
+  window.open("editar_evento.html?"+ides[id], "_self",false);
+}
 
 
 </script>
