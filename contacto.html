@@ -13,7 +13,7 @@
 
   <script type="text/javascript">
   Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
-
+    var data = new Array();
     $(document).ready(function() {
             var user = new Parse.User.current();
       if(user == null){
@@ -53,6 +53,7 @@
 
                 console.log(results);
             for( var i=0;i<results.length;i++){
+                data[i] = results[i];
                  var crear_row= document.createElement("tr");
                  crear_tabla.appendChild(crear_row);
                  for(var j=0; j<=0;j++){                     
@@ -68,10 +69,12 @@
                     var crear_eliminar= document.createElement("button");
                     crear_eliminar.setAttribute("class","btn btn-danger");
                     crear_eliminar.setAttribute("id","suprimir"+i);
+                    crear_eliminar.setAttribute("onclick","eliminar("+i+")");
 
                     var crear_enviar_email= document.createElement("button");
                     crear_enviar_email.setAttribute("class","btn btn-info");
                     crear_enviar_email.setAttribute("id","enviar_email"+i);
+                    crear_enviar_email.setAttribute("onclick","aceptar_usuario("+i+")");
 
 
                     var crear_col_nombre=document.createElement("td");
@@ -114,6 +117,64 @@
       });
 
   });
+function aceptar_usuario(id){
+  console.log(id);
+  console.log(data[id].attributes);
+
+  var new_user = new Parse.User();
+  new_user.set("username",data[id].attributes.Email);
+  new_user.set("password","123qwe");
+  new_user.set("email",data[id].attributes.Email);
+  new_user.signUp(null, {
+  success: function(user) {
+      alert("invitacion enviada correctamente");
+    },
+  error: function(user, error) {
+    // Show the error message somewhere and let the user try again.
+    alert("Error: " + error.code + " " + error.message);
+  }
+});
+
+  console.log(data[id].id);
+
+   var mensaje  = Parse.Object.extend("Recomendados");
+      var querys = new Parse.Query(mensaje);
+      querys.equalTo("objectId",data[id].id);
+      querys.find({
+        success: function(res){
+           res[0].destroy({
+                    success: function(yes){
+                          window.location.reload();
+                        },
+                    error: function(e){
+                          console.log(e);
+                    }
+                  })
+                  
+                  }
+
+      });
+
+}
+
+function eliminar(id){
+  var mensaje  = Parse.Object.extend("Recomendados");
+      var querys = new Parse.Query(mensaje);
+      querys.equalTo("objectId",data[id].id);
+      querys.find({
+        success: function(res){
+           res[0].destroy({
+                    success: function(yes){
+                              window.location.reload();
+                          },
+                    error: function(e){
+                    }
+                  })
+                  
+                  }
+
+      });
+}
 
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">

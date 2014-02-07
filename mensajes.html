@@ -21,7 +21,6 @@
       }
       var mensajes  = Parse.Object.extend("Contacto");
       var query = new Parse.Query(mensajes);
-      var a;
      
       query.find({
         success:function(results){
@@ -90,10 +89,7 @@
 
                   }
                 }
-                                         
-
-          
-        },
+            },
 
         error: function(error){
           alert("¡Ups Algo salio mal !");
@@ -101,6 +97,9 @@
       });
 
   });
+
+
+
 
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
