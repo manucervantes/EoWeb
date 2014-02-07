@@ -23,13 +23,6 @@
 Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
 var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
-  /**********************/
-  /* document.ready     */
-  /* carga las noticias */
-  /* al abrir la pag    */
-  /**********************/
-
-
 
   $(document).ready(function(){
           var user = new Parse.User.current();
@@ -45,11 +38,12 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
     query.find({
       success: function(results){
+        console.log(results);
          var mensaje = document.getElementById('mensaje');
          var titulo = document.getElementById('titulo');
              mensaje.value = results[0].attributes.Mensaje.toString();
              titulo.value = results[0].attributes.Titulo.toString();
-             imagen.src =  results[0].attributes.Imagen.url();
+             imagen.src =  results[0].attributes.Imagen.userrl();
 
 
                },
@@ -117,86 +111,10 @@ var contenido = document.getElementById("mensaje").value;
     });
    
 
-  /*  var id = document.URL;
-    id = id.replace("file:///Users/manuelcervantes/Documents/EO%20Mexico%20City/editar.html?","")
-        var titulo = document.getElementById("titulo").value;
-      var contenido = document.getElementById("mensaje").value;
 
-           var fileUploadControl = $("#profilePhotoFileUpload")[0];
-
-   
-
-      if(fileUploadControl.files.length    > 0)
-      {
-       fileUploadControl = $("#profilePhotoFileUpload")[0];ç
-        var file = fileUploadControl.files;
-     }
-     else{
-
-       fileUploadControl = document.getElementById("imagen").src;
-        var file = fileUploadControl;
-
-     }
-
-
-        
-      
-         
-          console.log(file)
-          var name = "coment.jpg";
- 
-
-          var Avisos = new Parse.Object.extend("Noticias");
-          var aviso = new Avisos();
-          var parseFile = new Parse.File(name, file);
-          aviso.save({Titulo: "proof",Mensaje: "prood", Imagen: parseFile});
-/*
-              aviso.save({Titulo: titulo,Mensaje: contenido, Imagen: parseFile},{
-                        success: function(aviso){
-                          console.log(aviso)
-                          alert("woow se actualizo correctamente");
-                          window.open("noticias.html", "_self",false);
-
-             
-                         },
-                        error: function(aviso,error){
-                          alert("¡ups algo salio mal!");
-                          console.log(error)
-                        }
-                      });
-
-        /*var Noticias = Parse.Object.extend("Noticias");
-        var query  = new Parse.Query(Avisos);
-        query.equalTo("objectId",id.toString());
-
-        query.find({
-          success: function(results){
-                  results[0].destroy({
-                  success: function(as){
-                   //window.open("noticias.html", "_self",false);
-
-
-
-                  },
-                  error: function(error,as){
-
-                  }
-                });
-             
-               },
-          error: function(error,messages){
-      }
-
-    });*/
-  
 
       
   }
-  /*************************/
-  /*function noticias()*****/
-  /*crea una nueva noticia**/
-  /*************************/
-
 
   
     

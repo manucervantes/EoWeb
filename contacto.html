@@ -1,97 +1,176 @@
-<!DOCTYPE html>
-<html class="">
-<head>
-<meta charset=utf-8 />
-<title>Furatto :: Landing</title>
- <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
-<script src="script/jquery.lightbox_me.js"></script>
-<link rel="stylesheet" href="assets/css/normalize.css" />
-<link rel="stylesheet" href="assets/css/furatto.css" />
-<link rel="stylesheet" href="assets/css/font-awesome.css" />
-<link rel="stylesheet" href="assets/css/docs.css" />
-<link rel="stylesheet" href="assets/css/examples.css" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <!DOCTYPE html>
+  <html class="">
+  <head>
+  <meta charset=utf-8 />
+  <title>Furatto :: Landing</title>
+  <link rel="stylesheet" href="assets/css/normalize.css" />
+  <link rel="stylesheet" href="assets/css/furatto.css" />
+  <link rel="stylesheet" href="assets/css/font-awesome.css" />
+  <link rel="stylesheet" href="assets/css/docs.css" />
+  <link rel="stylesheet" href="assets/css/examples.css" />
+  <script src="http://files.parse.com/042479be-bd88-4c73-8da6-c4ffc791501f/931fd755-2b8d-4798-bbc5-ba760c0c35d4-jquery.tools.min.js"></script>
+  <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 
-<script type="text/javascript">
+  <script type="text/javascript">
+  Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
 
-Parse.initialize("VO0fEwjzsZ3eldFPIHRKnSjd9azxpUXEmOnGlIhH", "MRTEXV3SABdzqdvJEPei55Z6GicbfZHNUMg585rW");
-var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
-    var ides = new Array();
-
-$(document).ready(function() {
-      var mensajes  = Parse.Object.extend("Eventos");
-      var query = new Parse.Query(mensajes);
-      var a;
-      var user = new Parse.User.current();
+    $(document).ready(function() {
+            var user = new Parse.User.current();
       if(user == null){
                window.open("log.html", "_self",false);
       }
-    });
+      var mensajes  = Parse.Object.extend("Recomendados");
+      var query = new Parse.Query(mensajes);
+      var a;
      
+      query.find({
+        success:function(results){
+
+          var crear_elements = document.getElementById("invitaciones")
+
+            var crear_tabla =  document.createElement("table");
+                //∫crear_tabla = setAttribute("id","tabla_inv");
+               
+                crear_tabla.setAttribute("class","table table-condensed responsive");
+                crear_elements.appendChild(crear_tabla);
+                var crear_encabezados= document.createElement("tr");
+
+                crear_tabla.appendChild(crear_encabezados);
+                var encabezado_nombres=document.createElement("td");
+                var encabezado_empesas=document.createElement("td");
+                var encabezado_emails=document.createElement("td");
+
+                encabezado_nombres.setAttribute("id","encabezado_nombre");
+                encabezado_empesas.setAttribute("id","encabezado_empesa");
+                encabezado_emails.setAttribute("id","encabezado_email");
+                crear_encabezados.appendChild(encabezado_nombres);
+                crear_encabezados.appendChild(encabezado_empesas);
+                crear_encabezados.appendChild(encabezado_emails);
+                document.getElementById("encabezado_nombre").innerHTML = "<b>Nombre</b>";
+                document.getElementById("encabezado_empesa").innerHTML = "<b>Empresa</b>";
+                document.getElementById("encabezado_email").innerHTML = "<b>Email</b>";
 
 
-</script>
-</head>
-<body>
+                console.log(results);
+            for( var i=0;i<results.length;i++){
+                 var crear_row= document.createElement("tr");
+                 crear_tabla.appendChild(crear_row);
+                 for(var j=0; j<=0;j++){                     
+                    var crear_nombre = document.createElement("p");
+                    crear_nombre.setAttribute("id","name"+i);
 
-<div class="panels ">
-  <div class="panel panel-left">
+                    var crear_empresa= document.createElement("p");
+                    crear_empresa.setAttribute("id","empresa"+i);
+
+                    var crear_email= document.createElement("p");
+                    crear_email.setAttribute("id","email"+i);
+
+                    var crear_eliminar= document.createElement("button");
+                    crear_eliminar.setAttribute("class","btn btn-danger");
+                    crear_eliminar.setAttribute("id","suprimir"+i);
+
+                    var crear_enviar_email= document.createElement("button");
+                    crear_enviar_email.setAttribute("class","btn btn-info");
+                    crear_enviar_email.setAttribute("id","enviar_email"+i);
+
+
+                    var crear_col_nombre=document.createElement("td");
+                    var crear_col_empresa = document.createElement("td");
+                    var crear_col_email = document.createElement("td");
+                    var crear_col_eliminar = document.createElement("td");
+                    var crear_col_enviar_email = document.createElement("td");
+
+
+                    crear_col_nombre.appendChild(crear_nombre);
+                    crear_col_empresa.appendChild(crear_empresa);
+                    crear_col_email.appendChild(crear_email);
+                    crear_col_eliminar.appendChild(crear_eliminar);
+                    crear_col_enviar_email.appendChild(crear_enviar_email);
+
+
+                    crear_row.appendChild(crear_col_nombre);
+                    crear_row.appendChild(crear_col_empresa);
+                    crear_row.appendChild(crear_col_email);
+                    crear_row.appendChild(crear_col_enviar_email);
+                    crear_row.appendChild(crear_col_eliminar);
+
+                    document.getElementById("name"+i).innerHTML = (results[i].attributes.Nombre);
+                    document.getElementById("empresa"+i).innerHTML = (results[i].attributes.Empresa);
+                    document.getElementById("email"+i).innerHTML = (results[i].attributes.Email);
+                    document.getElementById("suprimir"+i).innerHTML = "Eliminar";
+                    document.getElementById("enviar_email"+i).innerHTML = "Enviar Invitacion";
+
+
+                  }
+                }
+                                         
+
+          
+        },
+
+        error: function(error){
+          alert("¡Ups Algo salio mal !");
+        }
+      });
+
+  });
+
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  </head>
+  <body>
+
+  <div class="panels ">
+    <div class="panel panel-left">
+
+    </div>
   </div>
-</div>
 
-<div class="panel-content">
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner docs-navbar-inner">
-      <div class="container">
-        <a href="#menu" class="menu-trigger meteocon" data-meteocon="M" data-toggle="panel" data-target="#menu"></a>
-        <div class="nav-collapse collapse">
-          <nav id="menu">
-            <ul class="nav docs-navbar-menu">
-              <li><a class="brand" href="principal.html">EO México City</a></li>
-              <li class=""><a href="eventos.html">Eventos</a></li>
+  <div class="panel-content">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner docs-navbar-inner">
+        <div class="container">
+          <a href="#menu" class="menu-trigger meteocon" data-meteocon="M" data-toggle="panel" data-target="#menu"></a>
+          <div class="nav-collapse collapse">
+            <nav id="menu">
+              <ul class="nav docs-navbar-menu">
+                <li><a class="brand" href="principal.html">EO México City</a></li>
+                <li class=""><a href="eventos.html">Eventos</a></li>
               <li class=""><a href="miembros.html">Miembros</a></li>
               <li class=""><a href="noticias.html">Noticias</a></li>
               <li class=""><a href="mensajes.html">Mensajes</a></li>
               <li class=""><a href="contacto.html">Recomendaciones</a></li>
-            </ul>
-             <form  action = "nuevo_evento.html" accept-charset="utf-8" class="navbar-form pull-right search-navbar-form">
-              
-               <button  class="btn btn-success icon-file" id="new_news">
-              </button>
-              
-              <div class="form-fields">
-              
-            </form>
-          </nav>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-     <div id = "eventos">
+    <div class="row">
+      <div class="color_corp ">
+        <div id = "invitaciones"></div>
+       
       </div>
+    </div>
+
+    
+
+    <div class="row footer">
+    <p class="copyright">Copyright <a href="#" class="docs-license">ResponsiveLabs</a></p>
+    <ul class="inline">
+                <li><a class="brand" href="principal.html">EO México City</a></li>
+                <li class=""><a href="eventos.html">Eventos</a></li>
+                <li class="active"><a href="miembros.html">Miembros</a></li>
+                <li class=""><a href="mensajes.html">Mensajes</a></li>
+                <li class="active"><a href="noticias.html">Noticias</a></li>
+    </ul>
+    </div>
+
   </div>
 
-  
+    
 
-  <div class="row footer">
-  <p class="copyright">Copyright <a href="#" class="docs-license">ResponsiveLabs</a></p>
-  <ul class="inline">
-              <li><a class="brand" href="principal.html">EO México City</a></li>
-              <li class=""><a href="eventos.html">Eventos</a></li>
-              <li class="active"><a href="miembros.html">Miembros</a></li>
-              <li class=""><a href="mensajes.html">Mensajes</a></li>
-              <li class="active"><a href="noticias.html">Noticias</a></li>
-  </ul>
-  </div>
-
-</div>
-
-  
-
-<script src="assets/js/jquery.js"></script>
-<script src="assets/js/furatto.min.js"></script>
-</body>
-</html>
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/furatto.min.js"></script>
+  </body>
+  </html>
