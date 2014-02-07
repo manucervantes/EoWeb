@@ -2,7 +2,7 @@
   <html class="">
   <head>
   <meta charset=utf-8 />
-  <title>Furatto :: Landing</title>
+  <title>Eo México</title>
   <link rel="stylesheet" href="assets/css/normalize.css" />
   <link rel="stylesheet" href="assets/css/furatto.css" />
   <link rel="stylesheet" href="assets/css/font-awesome.css" />
@@ -19,7 +19,7 @@
       if(user == null){
                window.open("log.html", "_self",false);
       }
-      var mensajes  = Parse.Object.extend("Recomendados");
+      var mensajes  = Parse.Object.extend("Contacto");
       var query = new Parse.Query(mensajes);
       var a;
      
@@ -47,8 +47,8 @@
                 crear_encabezados.appendChild(encabezado_empesas);
                 crear_encabezados.appendChild(encabezado_emails);
                 document.getElementById("encabezado_nombre").innerHTML = "<b>Nombre</b>";
-                document.getElementById("encabezado_empesa").innerHTML = "<b>Empresa</b>";
-                document.getElementById("encabezado_email").innerHTML = "<b>Email</b>";
+                document.getElementById("encabezado_empesa").innerHTML = "<b>Asunto</b>";
+                document.getElementById("encabezado_email").innerHTML = "<b>Mensaje</b>";
 
 
                 console.log(results);
@@ -65,40 +65,27 @@
                     var crear_email= document.createElement("p");
                     crear_email.setAttribute("id","email"+i);
 
-                    var crear_eliminar= document.createElement("button");
-                    crear_eliminar.setAttribute("class","btn btn-danger");
-                    crear_eliminar.setAttribute("id","suprimir"+i);
-
-                    var crear_enviar_email= document.createElement("button");
-                    crear_enviar_email.setAttribute("class","btn btn-info");
-                    crear_enviar_email.setAttribute("id","enviar_email"+i);
+                   
 
 
                     var crear_col_nombre=document.createElement("td");
                     var crear_col_empresa = document.createElement("td");
                     var crear_col_email = document.createElement("td");
-                    var crear_col_eliminar = document.createElement("td");
-                    var crear_col_enviar_email = document.createElement("td");
+                   
 
 
                     crear_col_nombre.appendChild(crear_nombre);
                     crear_col_empresa.appendChild(crear_empresa);
                     crear_col_email.appendChild(crear_email);
-                    crear_col_eliminar.appendChild(crear_eliminar);
-                    crear_col_enviar_email.appendChild(crear_enviar_email);
 
 
                     crear_row.appendChild(crear_col_nombre);
                     crear_row.appendChild(crear_col_empresa);
                     crear_row.appendChild(crear_col_email);
-                    crear_row.appendChild(crear_col_enviar_email);
-                    crear_row.appendChild(crear_col_eliminar);
 
                     document.getElementById("name"+i).innerHTML = (results[i].attributes.Nombre);
-                    document.getElementById("empresa"+i).innerHTML = (results[i].attributes.Empresa);
-                    document.getElementById("email"+i).innerHTML = (results[i].attributes.Email);
-                    document.getElementById("suprimir"+i).innerHTML = "Eliminar";
-                    document.getElementById("enviar_email"+i).innerHTML = "Enviar Invitacion";
+                    document.getElementById("empresa"+i).innerHTML = (results[i].attributes.Asunto);
+                    document.getElementById("email"+i).innerHTML = (results[i].attributes.Mensaje);
 
 
                   }
