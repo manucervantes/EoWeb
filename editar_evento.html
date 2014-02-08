@@ -4,19 +4,27 @@
 <meta charset=utf-8 />
 <title>EO México City</title>
 
+
+  <script src="http://files.parse.com/042479be-bd88-4c73-8da6-c4ffc791501f/931fd755-2b8d-4798-bbc5-ba760c0c35d4-jquery.tools.min.js"></script>
+  <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+
  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+
 <script src="script/jquery.lightbox_me.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+<script src="http://www.jnathanson.com/pages/jquery/clockpick/1.2.9/jquery.clockpick.1.2.9.js"></script>
+<script src="http://www.jnathanson.com/pages/jquery/clockpick/1.2.9/jquery.clockpick.1.2.9.min.js"></script>
+<link rel="stylesheet" href="http://www.jnathanson.com/pages/jquery/clockpick/1.2.9/jquery.clockpick.1.2.9.css" />
+
 
 <link rel="stylesheet" href="assets/css/normalize.css" />
 <link rel="stylesheet" href="assets/css/furatto.css" />
 <link rel="stylesheet" href="assets/css/fon-awesome.css" />
 <link rel="stylesheet" href="assets/css/docs.css" />
 <link rel="stylesheet" href="assets/css/examples.css" />
-
-
-
+<script src="http://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.js"></script>
 
 <script type="text/javascript">
 
@@ -32,25 +40,28 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
 
   $(document).ready(function(){
-      var user = new Parse.User.current();
+          var user = new Parse.User.current();
       if(user == null){
                window.open("log.html", "_self",false);
       }
-    var id = document.URL;
-    id = id.replace("http://eo-mexico-web.herokuapp.com/editar.html?","")
-        var Noticias = Parse.Object.extend("Noticias");
+      var titulo = document.getElementById("titulo");
+      var mensaje = document.getElementById("mensaje");
+      var fecha_inc = document.getElementById("datepicker");
+      var fecha_ter = document.getElementById("datepickerend");
+
+          var id = document.URL;
+    id = id.replace("file:///Users/manuelcervantes/Music/EO/editar_evento.html?","")
+        var Noticias = Parse.Object.extend("Eventos");
     var query  = new Parse.Query(Noticias);
         query.equalTo("objectId",id.toString());
 
     query.find({
       success: function(results){
-         var mensaje = document.getElementById('mensaje');
-         var titulo = document.getElementById('titulo');
-         var imagen = document.getElementById('imagen');
-             mensaje.value = results[0].attributes.Mensaje.toString();
-             titulo.value = results[0].attributes.Titulo.toString();
-             imagen.src =  results[0].attributes.Imagen.url();
-
+       
+                titulo.value = results[0].attributes.Titulo;
+                mensaje.value = results[0].attributes.Descripcion;
+                fecha_inc.value = results[0].attributes.Fecha_inicio;
+                fecha_ter.value = results[0].attributes.Fecha_termino;
 
                },
       error: function(error,messages){
@@ -58,76 +69,41 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
       }
 
     });
-});
 
-  function actualizar(){
-var id = document.URL;
-    id = id.replace("http://eo-mexico-web.herokuapp.com/editar_evento.html?","")
-var ides = id.toString();
-var titulo = document.getElementById("titulo").value;
-var contenido = document.getElementById("mensaje").value;
 
-  console.log(ides);
- var Noticias = Parse.Object.extend("Noticias");
-        var query  = new Parse.Query(Noticias);
-        query.equalTo("objectId",ides.toString());
 
-        query.find({
-          success: function(results){
-                   var fileUploadControl = $("#profilePhotoFileUpload")[0];
-                    if(fileUploadControl.files.length > 0)
-                      {
-                        fileUploadControl = $("#profilePhotoFileUpload")[0];
-                        var file = fileUploadControl.files[0];
-                        var mantener = false;
-                        var name = "coment.jpg";
-                      }
-                      else{
-                            var mantener = true;
-                          }
+  });
 
-                    if(mantener){
-
-                      results[0].save({Titulo:titulo, Mensaje: contenido},{
-                                success: function(as){
-                                    window.open("noticias.html", "_self",false);
-                                },
-                                  error: function(error,as){
-
-                                }
-                            });
-                      }
-                        else{
-                              var parseFile = new Parse.File(name, file);
-                              console.log(parseFile)
-                              results[0].save({Titulo:titulo, Mensaje: contenido, Imagen: parseFile},{
-                                    success: function(as){
-                                        window.open("noticias.html", "_self",false);
-                                    },
-                                    error: function(error,as){
-                                      console.log(error);
-                                }
-                            });                          
-
-                      } 
-                },
-          error: function(error,messages){
-      }
-
-    });
-   
-
-      
-  }
   /*************************/
   /*function noticias()*****/
   /*crea una nueva noticia**/
   /*************************/
 
 
-  
-    
-  
+  function actualizar(){
+console.log("asdasd");
+      var id = document.URL;
+    id = id.replace("file:///Users/manuelcervantes/Music/EO/editar_evento.html?","")
+        var Noticias = Parse.Object.extend("Eventos");
+    var query  = new Parse.Query(Noticias);
+        query.equalTo("objectId",id.toString());
+
+    query.find({
+      success: function(results){
+
+                results[0].set("Titulo",titulo.value);
+                results[0].set("Descripcion",mensaje.value);
+                results[0].set("Fecha_inicio",fecha_inc.value);
+                results[0].set("Fecha_termino",fecha_ter.value);
+                results[0].save();
+     window.open("eventos.html", "_self",false);
+
+               },
+      error: function(error,messages){
+      }
+
+    });    
+  }
 
 
 
@@ -164,26 +140,48 @@ var contenido = document.getElementById("mensaje").value;
   <div class="row">
 
 
-    <div class=" " id ="contenedor">
+    <div class="" id ="contenedor">
       <div class = "not" id = "not" >
 
 
      <h2  class="jumbo-header">Editar Evento</h2>
        <div class="form-fields">
-                  <img src="" id="imagen" flag = "current">
 
          <label id = "label_titulo">Titulo:</h1>
          <input type="text" name="" id="titulo" value="" class="input-block" placeholder="Titulo"/>
        </div>
+
        <div class="form-fields">
-         <label id = "label_mensaje">Mensaje:</h1>
-         <textarea id="mensaje" rows = "8" placeholder="Mensaje"></textarea></div>
-         <input type="file" id="profilePhotoFileUpload">
+         <label id = "label_mensaje">Descripcion:</h1>
+         <input id="mensaje" rows = "7" placeholder="Mensaje" class="input-block"></input></div>
 
-          <input type="button" name="" id="" value="Editar" class="btn btn-mens btn-success" onClick = "actualizar();" />
-          <input type="button" name="" id="cancelar_btn" value="Cancelar" class="btn btn-mens btn-success" onClick = "" />  
+        
+          <div id="calendario">
+            <div id ="inicio">
 
-         
+            <table width="390" border="0" class = "fechas">
+            <tr>
+              <td><label>Inicia </label>
+                <input type="text" id="datepicker" class="input-block">
+                <script type="text/javascript">
+                $('#datepicker').datetimepicker();
+              </script>
+
+                </script>
+              <label></label></td>
+              
+              <td>Termina
+              <input  type = "text" id="datepickerend" class="input-block"></td>
+              <script type="text/javascript">
+               $('#datepickerend').datetimepicker();
+              </script>
+            </tr>
+          </table>
+           
+
+
+         </div>
+           <input type="button" name="" id="btn_actualizae" value="Actualizar" class="btn btn-mens btn-success" onClick = actualizar(); />
     </div>            
 
 
