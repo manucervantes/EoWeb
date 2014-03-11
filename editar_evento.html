@@ -79,7 +79,7 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
   function actualizar(){
 console.log("asdasd");
       var id = document.URL;
-    id = id.replace("http://eo-mexico-web.herokuapp.com/editar_evento.html?","")
+    id = id.replace("eo-mexico-web.herokuapp.com/editar_evento.html?","")
         var Noticias = Parse.Object.extend("Eventos");
     var query  = new Parse.Query(Noticias);
         query.equalTo("objectId",id.toString());
