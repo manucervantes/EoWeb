@@ -50,7 +50,7 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
       var fecha_ter = document.getElementById("datepickerend");
 
           var id = document.URL;
-    id = id.replace("file:///Users/manuelcervantes/Music/EO/editar_evento.html?","")
+    id = id.replace("http://eo-mexico-web.herokuapp.com/editar_evento.html?","")
         var Noticias = Parse.Object.extend("Eventos");
     var query  = new Parse.Query(Noticias);
         query.equalTo("objectId",id.toString());
