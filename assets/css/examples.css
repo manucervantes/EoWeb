@@ -324,6 +324,7 @@ background-color: white !important;
 }
 
 
+
 .trunca{
   max-height: 20% !important;
   overflow: hidden;
@@ -341,6 +342,11 @@ background-color: white !important;
   position: absolute;
   left: 40%;
   margin-top:-4%;
+
+}
+#btn_nuevo_us{
+  position: absolute;
+  right: 35%;
 
 }
 

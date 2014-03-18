@@ -44,61 +44,45 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
       if(user == null){
                window.open("log.html", "_self",false);
       }
-      var titulo = document.getElementById("titulo");
-      var mensaje = document.getElementById("mensaje");
-      var fecha_inc = document.getElementById("datepicker");
-      var fecha_ter = document.getElementById("datepickerend");
-
-          var id = document.URL;
-    id = id.replace("http://eo-mexico-web.herokuapp.com/editar_evento.html?","")
-        var Noticias = Parse.Object.extend("Eventos");
-    var query  = new Parse.Query(Noticias);
-        query.equalTo("objectId",id.toString());
-
-    query.find({
-      success: function(results){
-       
-                titulo.value = results[0].attributes.Titulo;
-                mensaje.value = results[0].attributes.Descripcion;
-                fecha_inc.value = results[0].attributes.Fecha_inicio;
-                fecha_ter.value = results[0].attributes.Fecha_termino;
-
-               },
-      error: function(error,messages){
-        alert(error.message);
-      }
-
-    });
 
 
+ 
 
   });
 
 
 
-  function actualizar(){
-      var id = document.URL;
-    id = id.replace("eo-mexico-web.herokuapp.com/editar_evento.html?","")
-        var Noticias = Parse.Object.extend("Eventos");
-    var query  = new Parse.Query(Noticias);
-        query.equalTo("objectId",id.toString());
 
-    query.find({
-      success: function(results){
+  function nuevo_usuario(){
 
-                results[0].set("Titulo",titulo.value);
-                results[0].set("Descripcion",mensaje.value);
-                results[0].set("Fecha_inicio",fecha_inc.value);
-                results[0].set("Fecha_termino",fecha_ter.value);
-                results[0].save();
-     window.open("eventos.html", "_self",false);
+      var nombre = document.getElementById("nombre").value;
+      var email = document.getElementById("correo").value;
+      var empresa  = document.getElementById("empresa").value;
 
-               },
-      error: function(error,messages){
-        console.log(error)
-      }
+      var user = new Parse.User();
+      user.set("username", email);
+      user.set("password", empresa);
+      user.set("email", email);
+ 
+// other fields can be set just like with Parse.Object
+ 
+    user.signUp(null, {
+  success: function(user) {
+    alert("El usuario se creo correctamente");
+    window.open("miembros.html", "_self",false);
 
-    });    
+  },
+  error: function(user, error) {
+    // Show the error message somewhere and let the user try again.
+    alert("Error: " + error.code + " " + error.message);
+  }
+});
+
+  
+        
+
+
+    
   }
 
 
@@ -140,44 +124,21 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
       <div class = "not" id = "not" >
 
 
-     <h2  class="jumbo-header">Editar Evento</h2>
+     <h2  class="jumbo-header">Nuevo Usuario</h2>
        <div class="form-fields">
 
-         <label id = "label_titulo">Titulo:</h1>
-         <input type="text" name="" id="titulo" value="" class="input-block" placeholder="Titulo"/>
+         <label id = "label_titulo">Nombre:</h1>
+         <input type="text" name="" id="nombre" value="" class="input-block" placeholder="Nombre"/>
        </div>
 
        <div class="form-fields">
-         <label id = "label_mensaje">Descripcion:</h1>
-         <textarea id="mensaje" rows = "7" placeholder="Mensaje" class="input-block"></textarea></div>
+         <label id = "label_mensaje">Email:</h1>
+         <input  type = "text" id="correo"  class="input-block" placeholder="Email"></input></div>
 
-        
-          <div id="calendario">
-            <div id ="inicio">
+        <label id = "label_mensaje">Empresa:</h1>
+         <input  type = "text" id="empresa"  class="input-block" placeholder="Empresa"></input></div>
 
-            <table width="390" border="0" class = "fechas">
-            <tr>
-              <td><label>Inicia </label>
-                <input type="text" id="datepicker" class="input-block">
-                <script type="text/javascript">
-                $('#datepicker').datetimepicker();
-              </script>
-
-                </script>
-              <label></label></td>
-              
-              <td>Termina
-              <input  type = "text" id="datepickerend" class="input-block"></td>
-              <script type="text/javascript">
-               $('#datepickerend').datetimepicker();
-              </script>
-            </tr>
-          </table>
-           
-
-
-         </div>
-           <input type="button" name="" id="btn_actualizae" value="Actualizar" class="btn btn-mens btn-success" onClick = actualizar(); />
+           <input type="button"  id="btn_nuevo_us" value="Crear" class="btn  btn-success" onClick = "nuevo_usuario();"/>
     </div>            
 
 
@@ -192,7 +153,7 @@ var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
 
               <li class=""><a href="eventos.html">Eventos</a></li>
               
-              </script>
+              </script>º
               <li class="active"><a href="miembros.html">Miembros</a></li>
               <li class=""><a href="mensajes.html">Mensajes</a></li>
               <li class="active"><a href="noticias.html">Noticias</a></li>
