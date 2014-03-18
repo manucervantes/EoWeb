@@ -78,7 +78,7 @@ $(document).ready(function() {
     query.find({
       success: function(results){
               asistentes_general = results[0].attributes.Asiste;
-
+                      
               for(var i = 0; i < asistentes_general.length; i++){
                  asistentes[i] = asistentes_general[i][0];
                  acompañantes[i] = asistentes_general[i][1];
