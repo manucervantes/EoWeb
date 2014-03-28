@@ -88,6 +88,9 @@
 
 #contenido{
   background-color: transparent;  
+  padding:100px;
+  padding-left: 100px;
+
 }
 
 .color_corp{
@@ -348,6 +351,12 @@ background-color: white !important;
   position: absolute;
   right: 35%;
 
+}
+.panel-content{
+  padding-top: 100px;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding: 100px;
 }
 
 
